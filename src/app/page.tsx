@@ -2,14 +2,14 @@
 import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import dynamic from 'next/dynamic';
+import Script from 'next/script';
 
-const Map = dynamic(() => import('./components/googleMap'), { ssr: false });
 
 const linkwtaps = 'https://wa.link/fdtpqg';
 
 import logoEmpresa from "/public/logo.png";
 import logoMaps from "/public/google-maps.png";
+import Map from "./components/googleMap";
 
 export default function Home() {
   const locationRef = useRef<HTMLDivElement>(null);
@@ -17,6 +17,8 @@ export default function Home() {
   const scrollToLocation = () => {
     locationRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+
   return (
     <>
       <main className="h-[100dvh] w-full bg-black flex flex-col items-center justify-center">
@@ -78,9 +80,12 @@ export default function Home() {
       </main>
 
       {/* Localização */}
-      <div ref={locationRef} className="h-[100dvh] w-full bg-slate-200 flex items-center justify-center">
+      <div ref={locationRef} className="h-[100dvh] w-full bg-slate-200 flex flex-col items-center justify-center">
+        <h2 className="px-12 m-4">Endereço: R. José Crocci, 357 - Vila Santucci, Leme - SP</h2>
         <div className="w-[50%] h-[50%] sm-mobile:w-[80%] sm-mobile:h-[60%]">
+
           <Map />
+
         </div>
       </div>
     </>
